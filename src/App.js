@@ -1,23 +1,29 @@
-import logo from './logo.svg';
+
+import react, { useEffect, useMemo } from 'react';
 import './App.css';
+import TodoForm from './components/TodoForm';
+import TodoList from './components/TodoList';
+
+function getCountersFromLocalStorage() {
+  const item = localStorage.getItem('counters')
+  if (item !== null) {
+    return JSON.parse(item)
+  }
+  return {
+    createdCount: 0,
+    updatedCount: 0,
+    deletedCount: 0
+  }
+}
 
 function App() {
+  const counters = useMemo(() => getCountersFromLocalStorage(), [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="todo-app">
+      <TodoList 
+      createdCount={counters.createdCount}
+      updatedCount={counters.updatedCount}
+      deletedCount={counters.deletedCount}/>
     </div>
   );
 }
