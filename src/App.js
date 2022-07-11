@@ -15,7 +15,7 @@ function getCountersFromLocalStorage() {
     deletedCount: 0
   }
 }
-
+console.log(localStorage);
 function App() {
   const counters = useMemo(() => getCountersFromLocalStorage(), [])
   return (

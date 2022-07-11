@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import Todo from './Todo';
 import TodoForm from './TodoForm'
+const TODOS_URL = 'https://gist.githubusercontent.com/alexandrtovmach/0c8a29b734075864727228c559fe9f96/raw/c4e4133c9658af4c4b3474475273b23b4a70b4af/todo-task.json'
 
 function saveCountersToLocalStorage(counters) {
   localStorage.setItem('counters', counters)
 }
-
-
 
 function TodoList(props) {
     const [todos, setTodos] = useState([])
@@ -20,18 +19,29 @@ function TodoList(props) {
         deletedCount: deletedCount
       }))
     }, [createdCount, updatedCount, deletedCount])
+    useEffect(() => {
+      fetch(TODOS_URL).then(
+        (response) => response.json()
+      ).then(
+        (rawData) => JSON.parse(rawData)
+      ).then(
+        (data) => {
+          const newTodos = data.filter((todo) => todos.findIndex((t) => t.id === todo.id) === -1)
+          setTodos((todos) => [...todos, ...newTodos])
+          setCreatedCount((createdCount) => createdCount + newTodos.length)
+        })
+    }, [])
 
-
-  const addTodo = todo => {
-     if (!todo.text|| /^\s*$/.test(todo.text)) {
+  function addTodo(todo) {
+    if (!todo.text || /^\s*$/.test(todo.text)) {
       return;
-     }
-     const newTodos = [todo, ...todos];
+    }
+    const newTodos = [todo, ...todos];
 
-     console.log(newTodos);
-     
-     setTodos(newTodos);
-     setCreatedCount(createdCount + 1)
+    console.log(newTodos);
+
+    setTodos(newTodos);
+    setCreatedCount(createdCount + 1);
   }
 
 
@@ -71,7 +81,9 @@ function TodoList(props) {
     <h1>Записки красной туфельки</h1>
 
     <TodoForm onSubmit={addTodo} />
+
     <Todo todos={todos} completeTodo={completeTodo} removeTodo={removeTodo} updateTodo ={updateTodo}/>
+    
     </div>
   )
 }
