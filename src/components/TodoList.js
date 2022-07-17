@@ -1,10 +1,27 @@
 import React, {useEffect, useState} from 'react'
 import Todo from './Todo';
 import TodoForm from './TodoForm'
+import styled from 'styled-components';
 const TODOS_URL = 'https://gist.githubusercontent.com/alexandrtovmach/0c8a29b734075864727228c559fe9f96/raw/c4e4133c9658af4c4b3474475273b23b4a70b4af/todo-task.json'
 
+const CreatedCount = styled.p`
+    margin-top: 1%;
+    display: flex;
+    flex-direction:column;
+    background: #161a2b;
+    color:rgb(176, 207, 38);
+  `
+  const HeaderText = styled.h1`
+    margin: 32px 0;
+    color: rgb(187, 73, 73);
+    font-size: 24px;
+  `
+  
 function saveCountersToLocalStorage(counters) {
   localStorage.setItem('counters', counters)
+}
+function saveColorsToLocalStorage(newTodos) {
+  localStorage.setItem('newTodos', newTodos)
 }
 
 function TodoList(props) {
@@ -19,6 +36,15 @@ function TodoList(props) {
         deletedCount: deletedCount
       }))
     }, [createdCount, updatedCount, deletedCount])
+    
+    // useEffect(() => {
+    //   saveColorsToLocalStorage(JSON.stringify({
+    //     id: todo.id,
+    //     color1: color_1,
+    //     color2: color_2
+    //   }))
+    // }, [])
+   
     useEffect(() => {
       fetch(TODOS_URL).then(
         (response) => response.json()
@@ -75,10 +101,10 @@ function TodoList(props) {
   }
     return (
     <div>
-    <p>Created Count {createdCount}</p>
-    <p>Updated Count {updatedCount}</p>
-    <p>Deleted Count {deletedCount}</p>  
-    <h1>Записки красной туфельки</h1>
+    <CreatedCount className='created-count'>Created Count {createdCount}</CreatedCount>
+    <CreatedCount className='created-count'>Updated Count {updatedCount}</CreatedCount>
+    <CreatedCount className='created-count'>Deleted Count {deletedCount}</CreatedCount>  
+    <HeaderText>Todo list</HeaderText>
 
     <TodoForm onSubmit={addTodo} />
 
