@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import Todo from './Todo';
+import Todo, { colorRandom } from './Todo';
 import TodoForm from './TodoForm'
 import styled from 'styled-components';
 const TODOS_URL = 'https://gist.githubusercontent.com/alexandrtovmach/0c8a29b734075864727228c559fe9f96/raw/c4e4133c9658af4c4b3474475273b23b4a70b4af/todo-task.json'
@@ -20,8 +20,8 @@ const CreatedCount = styled.p`
 function saveCountersToLocalStorage(counters) {
   localStorage.setItem('counters', counters)
 }
-function saveColorsToLocalStorage(newTodos) {
-  localStorage.setItem('newTodos', newTodos)
+function saveColorsToLocalStorage(todos) {
+  localStorage.setItem('todos', todos)
 }
 
 function TodoList(props) {
@@ -37,24 +37,33 @@ function TodoList(props) {
       }))
     }, [createdCount, updatedCount, deletedCount])
     
-    // useEffect(() => {
-    //   saveColorsToLocalStorage(JSON.stringify({
-    //     id: todo.id,
-    //     color1: color_1,
-    //     color2: color_2
-    //   }))
-    // }, [])
+    useEffect(() => {
+      saveColorsToLocalStorage(JSON.stringify(
+      todos))
+      console.log(todos)
+    }, [todos])
    
     useEffect(() => {
       fetch(TODOS_URL).then(
         (response) => response.json()
-      ).then(
-        (rawData) => JSON.parse(rawData)
+      // ).then(
+      //   (rawData) => {
+      //     console.log(rawData)
+      //     return JSON.parse(rawData.text)}
       ).then(
         (data) => {
+          console.log(data)
+
           const newTodos = data.filter((todo) => todos.findIndex((t) => t.id === todo.id) === -1)
+          newTodos.forEach(
+            (el) => { 
+              el.color_1 = colorRandom()
+              el.color_2 = colorRandom()
+            }
+          );
           setTodos((todos) => [...todos, ...newTodos])
           setCreatedCount((createdCount) => createdCount + newTodos.length)
+
         })
     }, [])
 
@@ -68,6 +77,7 @@ function TodoList(props) {
 
     setTodos(newTodos);
     setCreatedCount(createdCount + 1);
+    
   }
 
 

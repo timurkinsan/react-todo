@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react'
 import Example from './example'
 import TodoList from './TodoList'
 import styled from 'styled-components'
-import { colorRandom } from './Todo'
+import Todo, { colorRandom } from './Todo'
 
 const StyledInput = styled.input`
   padding: 14px 39px 14px 16px;
@@ -33,7 +33,7 @@ const StyledButton = styled.button`
 const Form = styled.form`
   margin-bottom: 32px;
 `
-// function saveColorsToLocalStorage (props.onSubmit()) {
+// function saveColorsToLocalStorage (JSON.stringify(todos)) {
 //   localStorage.setItem('Todos', props.onSubmit())
 // }
 
@@ -62,7 +62,9 @@ function TodoForm(props) {
         color_2: colorRandom()
     })
     setInput('');
-
+    function saveCountersToLocalStorage(Todo) {
+      localStorage.setItem('todos', )
+    }
   };
   return (
     <Form className='todo-form' onSubmit={handleSubmit} autoComplete='off'>
