@@ -20,7 +20,7 @@ const CreatedCount = styled.p`
 function saveCountersToLocalStorage(counters) {
   localStorage.setItem('counters', counters)
 }
-function saveColorsToLocalStorage(todos) {
+function saveTodosToLocalStorage(todos) {
   localStorage.setItem('todos', todos)
 }
 
@@ -38,8 +38,7 @@ function TodoList(props) {
     }, [createdCount, updatedCount, deletedCount])
     
     useEffect(() => {
-      saveColorsToLocalStorage(JSON.stringify(
-      todos))
+      saveTodosToLocalStorage(JSON.stringify(todos))
       console.log(todos)
     }, [todos])
    
