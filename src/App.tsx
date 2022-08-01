@@ -5,10 +5,10 @@ import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 import styled from 'styled-components'
 
-const TodoApp: any = styled.div`
+const TodoApp = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: start;
+  flex-direction column;
+  justify-content start;
   width: 1000px;
   min-height: 600px;
   background: #161a2b;
