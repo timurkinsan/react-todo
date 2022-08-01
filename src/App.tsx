@@ -5,7 +5,7 @@ import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 import styled from 'styled-components'
 
-const TodoApp = styled.div`
+const TodoApp: any = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;

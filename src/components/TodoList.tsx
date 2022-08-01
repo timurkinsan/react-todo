@@ -4,14 +4,14 @@ import TodoForm from './TodoForm'
 import styled from 'styled-components';
 const TODOS_URL = 'https://gist.githubusercontent.com/alexandrtovmach/0c8a29b734075864727228c559fe9f96/raw/c4e4133c9658af4c4b3474475273b23b4a70b4af/todo-task.json'
 
-const CreatedCount = styled.p`
+const CreatedCount: any = styled.p`
     margin-top: 1%;
     display: flex;
     flex-direction:column;
     background: #161a2b;
     color:rgb(176, 207, 38);
   `
-  const HeaderText = styled.h1`
+  const HeaderText: any = styled.h1`
     margin: 32px 0;
     color: rgb(187, 73, 73);
     font-size: 24px;
@@ -53,15 +53,20 @@ function TodoList(props) {
         (data) => {
           console.log(data)
 
-          const newTodos = data.filter((todo) => todos.findIndex((t) => t.id === todo.id) === -1)
-          newTodos.forEach(
-            (el) => { 
-              el.color_1 = colorRandom()
-              el.color_2 = colorRandom()
-            }
-          );
-          setTodos((todos) => [...todos, ...newTodos])
-          setCreatedCount((createdCount) => createdCount + newTodos.length)
+          
+          setTodos((todos) => {
+            const newTodos = data.filter((todo) => todos.findIndex((t) => t.id === todo.id) === -1)
+            newTodos.forEach(
+              (el) => { 
+                el.color_1 = colorRandom()
+                el.color_2 = colorRandom()
+              }
+            );
+            setCreatedCount((createdCount) => createdCount + newTodos.length)
+            return [...todos, ...newTodos] 
+          }
+          )
+
 
         })
     }, [])

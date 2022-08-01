@@ -6,7 +6,7 @@ import {TiEdit} from 'react-icons/ti';
 import styled, { css } from 'styled-components'
 
 
-const TodoRow = styled.div`
+const TodoRow: any  = styled.div`
 display: flex;
     justify-content: space-between;
     align-items: center;
@@ -23,26 +23,26 @@ display: flex;
     border-radius: 5px;
     width: 90%;
 `
-const Icons = styled.div`
+const Icons: any = styled.div`
     display: flex;
     align-items: center;
     font-size: 24px;
     cursor: pointer; 
      
 `
-const DeleteIcon = styled(RiCloseCircleLine)`
+const DeleteIcon: any = styled(RiCloseCircleLine)`
     margin-right: 5px;
     color: rgb(22, 20, 20);
 `
 
-const TiEditIcon = styled(TiEdit)`
+const TiEditIcon: any = styled(TiEdit)`
     margin-right: 5px;
     color: rgb(97, 37, 10);
 `
 export function  colorRandom () {
-    const r = Math.floor(Math.random()*255)
-    const g = Math.floor(Math.random()*255)
-    const b = Math.floor(Math.random()*255)
+    const r: number = Math.floor(Math.random()*255)
+    const g: number = Math.floor(Math.random()*255)
+    const b: number = Math.floor(Math.random()*255)
   
     return `rgb(${r}, ${g}, ${b})`
   
