@@ -1,5 +1,5 @@
 
-import react, { useEffect, useMemo } from 'react';
+import {useMemo}  from 'react';
 import './App.scss';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
@@ -17,9 +17,14 @@ const TodoApp = styled.div`
   border-radius: 10px;
   padding-bottom: 32px;
 `
+interface CountersObject {
+    createdCount: number,
+    updatedCount: number,
+    deletedCount: number
+}
 
-function getCountersFromLocalStorage() {
-  const item = localStorage.getItem('counters')
+function getCountersFromLocalStorage(): CountersObject {
+  const item: string | null = localStorage.getItem('counters')
   if (item !== null) {
     return JSON.parse(item)
   }
@@ -31,13 +36,13 @@ function getCountersFromLocalStorage() {
 }
 console.log(localStorage);
 function App() {
-  const counters = useMemo(() => getCountersFromLocalStorage(), [])
+  const counters = useMemo<CountersObject>(() => getCountersFromLocalStorage(), [])
   return (
     <TodoApp className="todo-app">
       <TodoList 
-      createdCount={counters.createdCount}
-      updatedCount={counters.updatedCount}
-      deletedCount={counters.deletedCount}/>
+        createdCount={counters.createdCount}
+        updatedCount={counters.updatedCount}
+        deletedCount={counters.deletedCount} id={0}/>
     </TodoApp>
   );
 }

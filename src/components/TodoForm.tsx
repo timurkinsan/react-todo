@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect, useRef, BaseSyntheticEvent, SyntheticEvent, ChangeEvent} from 'react'
 import TodoList from './TodoList'
 import styled from 'styled-components'
 import Todo, { colorRandom } from './Todo'
@@ -38,20 +38,20 @@ const Form: any = styled.form`
 
 
 function TodoForm(props) {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState<string>('');
   
   
-  const inputRef = useRef (null) 
+  const inputRef = useRef<HTMLInputElement>(null) 
   useEffect (() => {
     inputRef.current.focus()
   })
 
   
-  const handleChange = e => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value)
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = (e:SyntheticEvent) => {
     e.preventDefault();
 
     props.onSubmit({
